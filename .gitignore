@@ -1,0 +1,6 @@
+*.ipynb
+.DS_Store
+.ipynb_checkpoints
+.DS_*
+src/__pycache
+src/model_layers/__pycache
