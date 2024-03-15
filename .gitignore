@@ -5,4 +5,5 @@
 src/__pycache__
 src/model_layers/__pycache__
 sample2
+sample/centers
 test
