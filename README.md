@@ -1,5 +1,6 @@
-# VaCe: Valid Centers for Chromosomes for Cancer Research: Upgrading Chromosome Analysis
-This contains the code for our chromosome segmentation tool. 
+# VaCe
+#### Valid Centers for Chromosomes for Cancer Research
+This contains the code for our chromosome segmentation tool 'VaCe'. It is primarily used for finding chromosome centers in DAPI stained cancer cells. 
 
 ## Directory
 
@@ -26,7 +27,7 @@ conda activate vace
 ```
 
 ## Image Specifications
-Input folder will only read .tif files
+Input folder will only read .tif files. Images should be of cells stained with DAPI to highlight chromosomes blue. 
 
 ## Tasks
 ### `make centers`
@@ -42,3 +43,8 @@ image_path : path to folder containing images
 
 1. **norm folder** - folder containing normalized images
 add output
+
+## Reference and Citation
+This work implements code from [ecSeg](https://github.com/UCRajkumar/ecSeg/tree/master) and [NuSeT](https://github.com/yanglf1121/NuSeT), and is inspired by [Faster R-CNN](https://github.com/endernewton/tf-faster-rcnn).
+
+If you liked this work, refer to our website and paper, linked on the website. https://sophialugo.github.io/Capstone/

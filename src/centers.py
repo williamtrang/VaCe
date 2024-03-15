@@ -11,6 +11,29 @@ from model_layers.RPN import RPN
 
 
 class ImageLoader(torch.utils.data.Dataset):
+    """
+    A custom PyTorch dataset for loading images and their corresponding U-Net outputs.
+
+    Args:
+        img_paths (list): A list of file paths to the images.
+
+    Attributes:
+        img_paths (list): A list of file paths to the images.
+        model (UNET): A pre-trained UNet model for generating segmentation masks.
+        checkpoint (dict): The checkpoint containing the state dictionary of the U-Net model.
+
+    Methods:
+        __len__(): Returns the total number of images in the dataset.
+        load_unet_output(img_path): Loads an image, preprocesses it, and generates the corresponding UNet output.
+        __getitem__(idx): Returns the U-Net output for the image at the specified index.
+
+    Examples:
+        # Create an ImageLoader instance with image paths
+        img_loader = ImageLoader(img_paths)
+        # Get the UNet output for an image at index 0
+        unet_output = img_loader[0]
+    """
+
     def __init__(self, img_paths):
         self.img_paths = img_paths
         self.model = UNET().eval()

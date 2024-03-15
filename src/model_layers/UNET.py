@@ -4,6 +4,32 @@ import torch
 from torch import nn
 
 class BatchNorm(nn.Module):
+    """
+    A batch normalization module.
+
+    Args:
+        num_features (int): Number of features in the input tensor.
+        epsilon (float, optional): A small value added to the denominator for numerical stability. Default is 0.001.
+        dim (int, optional): The dimension along which normalization is performed. Default is 1.
+
+    Attributes:
+        dim (int): The dimension along which normalization is performed.
+        gamma (nn.Parameter): Learnable scale parameter.
+        beta (nn.Parameter): Learnable shift parameter.
+        running_mean (nn.Parameter): Running mean of the input.
+        running_var (nn.Parameter): Running variance of the input.
+        epsilon (float): A small value added to the denominator for numerical stability.
+
+    Methods:
+        forward(x): Performs batch normalization on the input tensor x.
+
+    Examples:
+        # Create a BatchNorm instance with 64 input features
+        bn = BatchNorm(64)
+        # Apply batch normalization to an input tensor x
+        output = bn(x)
+    """
+    
     def __init__(self, num_features, epsilon=0.001, dim=1):
         super(BatchNorm, self).__init__()
         self.dim = dim
@@ -20,6 +46,27 @@ class BatchNorm(nn.Module):
         return x
         
 class UNET(nn.Module):
+    """
+    Implementation of a U-Net model for image segmentation.
+    With reference to https://github.com/UCRajkumar/ecSeg/blob/master/src/model_layers/models.py
+
+    Attributes:
+        num_encoder_blocks (int): Number of encoder blocks.
+        num_sequential_blocks (int): Number of sequential blocks.
+        num_decoder_blocks (int): Number of decoder blocks.
+        output_channels (int): Number of output channels.
+
+    Methods:
+        forward(x): Forward pass through the U-Net model.
+        load_weights(val_model): Load weights from a pre-trained model.
+
+    Examples:
+        # Create a UNET instance
+        model = UNET()
+        # Forward pass
+        output = model(x)
+    """
+
     def __init__(self):
         super(UNET, self).__init__()
         
