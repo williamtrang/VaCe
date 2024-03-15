@@ -42,7 +42,7 @@ image_path : path to folder containing images
 
 #### Output
 
-1. ** centers/img_name_centers.npy ** - Raw values of centers from Torch tensor, stored in numpy format
+1. **centers/img_name_centers.npy** - Raw values of centers from Torch tensor, stored in numpy format
 
 ## Reference and Citation
 This work implements code from [ecSeg](https://github.com/UCRajkumar/ecSeg/tree/master) and [NuSeT](https://github.com/yanglf1121/NuSeT), and is inspired by [Faster R-CNN](https://github.com/endernewton/tf-faster-rcnn).
