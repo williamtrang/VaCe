@@ -8,8 +8,9 @@ This contains the code for our chromosome segmentation tool 'VaCe'. It is primar
 | ----------- | ----------- |
 | config.ini      | Configuration file to set parameters       |
 | environment.yml   | File to create the environment        |
+| Makefile | Makefile to run the script        |
 
-
+...
 
 | Folder      | Description |
 | ----------- | ----------- |
@@ -31,7 +32,7 @@ Input folder will only read .tif files. Images should be of cells stained with D
 
 ## Tasks
 ### `make centers`
-Add description
+Takes in cell images, processes with U-Net, and outputs valid chromosome centers for the images. 
 
 Set parameters in config.ini under `Centers`:
 
@@ -41,8 +42,7 @@ image_path : path to folder containing images
 
 #### Output
 
-1. **norm folder** - folder containing normalized images
-add output
+1. ** centers/img_name_centers.npy ** - Raw values of centers from Torch tensor, stored in numpy format
 
 ## Reference and Citation
 This work implements code from [ecSeg](https://github.com/UCRajkumar/ecSeg/tree/master) and [NuSeT](https://github.com/yanglf1121/NuSeT), and is inspired by [Faster R-CNN](https://github.com/endernewton/tf-faster-rcnn).

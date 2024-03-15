@@ -1,10 +1,9 @@
-import os, configparser
+import os, configparser, sys
 
 from skimage.io import imread
 import numpy as np
 import torch
 from torch import nn
-from tqdm import tqdm
 
 from model_layers.UNET import UNET, BatchNorm
 from model_layers.RPN import RPN
@@ -37,7 +36,7 @@ class ImageLoader(torch.utils.data.Dataset):
     def __init__(self, img_paths):
         self.img_paths = img_paths
         self.model = UNET().eval()
-        self.checkpoint = torch.load('ecseg.pt')
+        self.checkpoint = torch.load('src/model_weights/ecseg.pt', map_location=torch.device('cpu'))
         self.model.load_state_dict(self.checkpoint)
 
     def __len__(self):
@@ -64,17 +63,30 @@ if __name__ == '__main__':
     img_names = os.listdir(root_path)
 
     all_img_paths = [os.path.join(root_path, img) for img in img_names]
-    dataset = ImageLoader(all_img_paths)
+    all_valid_img_paths = [x for x in all_img_paths if x[-4:] == '.tif']
+    
+    if len(all_valid_img_paths) == 0:
+        print('No valid images in path. Exiting...')
+        sys.exit()
+
+    dataset = ImageLoader(all_valid_img_paths)
     dataloader = torch.utils.data.DataLoader(dataset, shuffle=True)
 
     output_path = os.path.join(root_path, 'centers')
-    os.mkdir(output_path, exist_ok=True)
+    os.makedirs(output_path, exist_ok=True)
 
     NUM_ANCHORS = 10
     UNET_DIMS = 64
     rpn = RPN(NUM_ANCHORS, UNET_DIMS)
-    rpn_weights = torch.load('RPN_weights.pt')
+    rpn_weights = torch.load('src/model_weights/RPN_weights.pt', map_location=torch.device('cpu'))
     rpn.load_state_dict(rpn_weights)
 
-    for unet_output in tqdm(dataloader):
-        rpn_output = rpn(unet_output)
+    for img_path in all_valid_img_paths:
+        img_name = os.path.basename(img_path)
+        dataset = ImageLoader([img_path])
+        dataloader = torch.utils.data.DataLoader(dataset)
+        print('Processing: ' + img_name)
+
+        for unet_output in dataloader:
+            rpn_output = rpn(unet_output)
+            np.save(os.path.join(output_path, img_name[:-4] + '_centers.npy'), rpn_output.squeeze(axis=0).detach().numpy())

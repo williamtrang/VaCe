@@ -1,0 +1,8 @@
+name: vace
+channels:
+  - defaults
+dependencies:
+  - python
+  - pytorch
+  - scikit-image
+prefix: /Users/William/anaconda3/envs/vace
