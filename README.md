@@ -18,7 +18,7 @@ This contains the code for our chromosome segmentation tool 'VaCe'. It is primar
 | src   | Contains our Python scripts        |
 
 ## Installation
-To get started, run the following code to create the environment. Run this any time you want to use the tool!
+To get started, run the following code to create the environment. Make sure to activate the environment every time before using the tool.
 
 ```
 git clone 
